@@ -1,0 +1,37 @@
+# easy cheat.sh
+function cht {
+    curl -s cheat.sh/$(echo $@ | tr ' ' '/') | less -R
+}
+export -f cht
+
+# advent of code
+aoc() {
+    sed -i "s/AOC_SESSION=.*/AOC_SESSION=$1/" ~/.bashrc
+    source ~/.bashrc
+}
+export -f aoc
+
+# python function
+function pydb {
+    python -mpdb -c "b $1" -c c "$2" "$3"
+}
+export -f pydb
+
+function pydc {
+    python -mpdb -c c  "$1" "$2"
+}
+export -f pydc
+
+# cmd for mybin
+function mycmd {
+    mybin="$HOME/.local/bin"
+    dirs=$(find $HOME/src -mindepth 1 -maxdepth 1 -type d)
+    for dir in $dirs; do
+        name="${dir##*/}"
+        src="${dir}/$name"
+        dest="${mybin}/$name"
+        [[ -f $dest ]] || ln -s $src $dest
+    done
+}
+export -f mycmd
+
