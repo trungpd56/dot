@@ -6,6 +6,8 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagn
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 vim.keymap.set('n', '<tab>', 'gt')
 vim.keymap.set('n', '<s-tab>', 'gT')
+-- vim.keymap.set('n', '<M-right', 'gt')
+-- vim.keymap.set('n', '<M-left', 'gT')
 vim.keymap.set('n', '<bs>', '<C-^>`"zz')
 vim.keymap.set('n', '<leader>=', '<C-w>=', { desc = 'Resize all windows to be equal' })
 vim.keymap.set({ 'n', 'v' }, '<leader>p', [["_dP]], { desc = 'Paste and keep register content' })
@@ -27,12 +29,12 @@ vim.keymap.set('n', 'sk', '<C-w>k')
 vim.keymap.set('n', 'sj', '<C-w>j')
 vim.keymap.set('n', 'sl', '<C-w>l')
 vim.keymap.set('n', 'tt', ':tab term<cr>')
-vim.keymap.set('n', 'tf', ':term<cr>')
-vim.keymap.set('n', 'tj', ':vert term<cr>')
+vim.keymap.set('n', 'tx', ':term<cr>')
+vim.keymap.set('n', 'tv', ':vert term<cr>')
 vim.keymap.set('n', 'st', function()
   vim.cmd.new()
-  vim.cmd.wincmd 'j'
+  vim.cmd.wincmd 'J'
   vim.api.nvim_win_set_height(0, 15)
-  vim.api.nvim_set_option_value('winfixheight', true, { win = 0 })
-  vim.cmd 'term'
+  vim.wo.winfixheight = true
+  vim.cmd.term()
 end)

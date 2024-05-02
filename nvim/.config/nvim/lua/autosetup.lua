@@ -1,5 +1,5 @@
 local autocmd = vim.api.nvim_create_autocmd
-local setup = vim.api.nvim_create_augroup("setup", { clear = true })
+local setup = vim.api.nvim_create_augroup('setup', { clear = true })
 
 autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
@@ -9,26 +9,27 @@ autocmd('TextYankPost', {
   end,
 })
 
-autocmd("InsertLeave", {
+autocmd('InsertLeave', {
   group = setup,
-  pattern = "*",
-  command = "set nopaste",
+  pattern = '*',
+  command = 'set nopaste',
 })
 
-autocmd("BufWritePre", {
+autocmd('BufWritePre', {
   group = setup,
-  pattern = "*",
+  pattern = '*',
   command = [[%s/\s\+$//e]],
 })
 
-autocmd({ "TermOpen", "BufEnter" }, {
+autocmd({ 'TermOpen', 'BufEnter' }, {
   group = setup,
-  pattern = { "*" },
+  pattern = { '*' },
   callback = function()
-    if vim.opt.buftype:get() == "terminal" then
-      vim.cmd(":startinsert")
+    if vim.opt.buftype:get() == 'terminal' then
+      vim.cmd ':startinsert'
       vim.opt.nu = false
       vim.opt.relativenumber = false
+      vim.opt.scrolloff = 0
     end
   end,
 })
