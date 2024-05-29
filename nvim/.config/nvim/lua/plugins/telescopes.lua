@@ -21,10 +21,14 @@ return {
       --  All the info you're looking for is in `:help telescope.setup()`
       defaults = {
         mappings = {
+          n = {
+            ['<c-d>'] = require('telescope.actions').delete_buffer,
+          },
           i = {
             ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
             ['<C-n>'] = actions.move_selection_next,
             ['<C-p>'] = actions.move_selection_previous,
+            ['<c-d>'] = actions.delete_buffer,
           },
         },
         -- layout_strategy = "vertical"

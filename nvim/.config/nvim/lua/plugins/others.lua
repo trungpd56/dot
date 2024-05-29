@@ -12,6 +12,17 @@ return {
   'tpope/vim-surround',
   'tpope/vim-repeat',
   'vim-scripts/ReplaceWithRegister',
+  'tpope/vim-dadbod',
+  'kristijanhusak/vim-dadbod-completion',
+  'kristijanhusak/vim-dadbod-ui',
+  {
+    'okuuva/auto-save.nvim',
+    cmd = 'ASToggle', -- optional for lazy loading on command
+    event = { 'InsertLeave', 'TextChanged' }, -- optional for lazy loading on trigger events
+    opts = {
+      enabled = false,
+    },
+  },
   {
     'windwp/nvim-autopairs',
     -- Optional dependency
@@ -70,6 +81,8 @@ return {
           ['<C-v>'] = 'actions.select_vsplit',
           ['<C-x>'] = 'actions.select_split',
           ['<C-t>'] = 'actions.select_tab',
+          ['~'] = 'actions.cd',
+          ['`'] = 'actions.tcd',
         },
         view_options = {
           show_hidden = true,
