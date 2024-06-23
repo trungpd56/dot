@@ -1,10 +1,11 @@
 # alias
 alias ap="ansible-playbook"
+alias ad="cat ~/dot/alist.txt | fzf | xargs -I {} sh -c 'ansible-doc {} | less +/EX'"
 alias python="python3"
-alias vim="nvim"
 alias upcur="updog -p 9999"
 alias pvc="python -m venv venv"
 alias pva="source venv/bin/activate"
+alias ll="ls -l --color"
 
 # git alias
 alias gc="git commit"

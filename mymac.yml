@@ -1,0 +1,87 @@
+---
+- name: Setup new macbook
+  hosts: localhost
+  gather_facts: false
+  become: false
+  tasks:
+    - name: Stow my config
+      ansible.builtin.shell:
+        cmd: |
+          STOW_FOLDERS='tmux nvim gitconfig zshrc'
+          for folder in $STOW_FOLDERS; do
+              echo "stow $folder"
+              stow -D $folder
+              stow $folder
+          done
+      tags:
+        - stow
+
+    - name: Copy keyboard layout
+      ansible.builtin.copy:
+        src: './macfiles/USKeylayout_custom_no_alt.keylayout'
+        dest: '~/Library/Keyboard Layouts'
+
+    - name: Change keyboard option mapping
+      # https://hidutil-generator.netlify.app/
+      ansible.builtin.copy:
+        src: './macfiles/keymap'
+        dest: '/Library/LaunchAgents/com.local.KeyRemapping.plist'
+      become: true
+
+    - name: Delete microsoft autoupdate
+      ansible.builtin.file:
+        path: "/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate"
+        state: absent
+      become: true
+
+    - name: Run command settings
+      ansible.builtin.command:
+        cmd: defaults write -g ApplePressAndHoldEnabled -bool false
+
+    - name: Install command apps
+      community.general.homebrew:
+        name:
+          - ansible
+          - git-delta
+          - iproute2mac
+          - neovim
+          - nmap
+          - node
+          - stow
+          - tree
+          - zoxide
+        state: present
+
+    - name: Install casks apps
+      community.general.homebrew_cask:
+        name:
+          # - docker
+          # - burp
+          # - bruno
+          # - maccy
+          # - openvpn-connect
+          - syncthing
+          - bitwarden
+          - command-x
+          - drawio
+          - font-jetbrains-mono-nerd-font
+          - iterm2
+          - logitech-options
+          - microsoft-edge
+          - microsoft-remote-desktop
+          - only-switch
+          - rar
+          - rectangle
+          - sublime-text
+          - swiftdefaultappsprefpane
+          - tailscale
+          - telegram
+          - evkey
+          - viber
+          - vlc
+          - wireshark
+        state: present
+        sudo_password: "{{ pass }}"
+
+
+
