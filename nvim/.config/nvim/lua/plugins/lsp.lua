@@ -14,7 +14,6 @@ return {
         local map = function(keys, func, desc)
           vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
         end
-        -- map('<leader>e', vim.diagnostic.open_float, 'Show diagnostic [E]rror messages' )
         -- map('<leader>q', vim.diagnostic.setloclist, 'Open diagnostic [Q]uickfix list' )
         map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
         map('gl', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')

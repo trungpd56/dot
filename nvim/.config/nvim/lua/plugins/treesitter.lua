@@ -2,7 +2,7 @@ return {
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
   opts = {
-    ensure_installed = { 'bash', 'python', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
+    ensure_installed = { 'c', 'bash', 'python', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'html' },
     -- Autoinstall languages that are not installed
     auto_install = true,
     highlight = {

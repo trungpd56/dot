@@ -1,6 +1,6 @@
 vim.keymap.set('i', 'jk', '<esc>')
-vim.keymap.set('n', '<right>', 'gt')
-vim.keymap.set('n', '<left>', 'gT')
+vim.keymap.set('n', '<right>', 'gT')
+vim.keymap.set('n', '<left>', 'gt')
 vim.keymap.set('n', '<up>', '<C-u>')
 vim.keymap.set('n', '<down>', '<C-d>')
 vim.keymap.set('n', '<leader><space>', '<C-^>`"zz')

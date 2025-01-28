@@ -6,19 +6,57 @@ return {
   'rhysd/clever-f.vim',
   'kristijanhusak/vim-dadbod-ui',
   'michaeljsmith/vim-indent-object',
-  'mkitt/tabline.vim',
+  -- 'mkitt/tabline.vim',
   'nelstrom/vim-visual-star-search',
+  {
+    'chentoast/marks.nvim',
+    event = 'VeryLazy',
+    opts = {},
+  },
   'romainl/vim-cool',
   'romainl/vim-qf',
   'tpope/vim-dadbod',
+  'tpope/vim-sleuth',
   'tpope/vim-eunuch',
   'tpope/vim-repeat',
   'tpope/vim-rsi',
   'tpope/vim-surround',
-  'tpope/vim-unimpaired',
-  'vim-scripts/ReplaceWithRegister',
+  -- 'tpope/vim-unimpaired',
+  -- 'vim-scripts/ReplaceWithRegister',
+  -- {
+  --   'vim-scripts/ReplaceWithRegister',
+  --   keys = {
+  --     { '<leader>r', '<Plug>ReplaceWithRegisterOperator', desc = 'ReplaceWithRegisterOperator' },
+  --   },
+  -- },
   'wellle/targets.vim',
+  {
+    'kawre/leetcode.nvim',
+    build = ':TSUpdate html', -- if you have `nvim-treesitter` installed
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+      -- "ibhagwan/fzf-lua",
+      'nvim-lua/plenary.nvim',
+      'MunifTanjim/nui.nvim',
+    },
+    opts = {
+      -- configuration goes here
+      lang = 'python3',
+      injector = { ['python3'] = { before = true } },
+
+    },
+  },
+
   { 'numToStr/Comment.nvim', opts = {} },
+  {
+    'svban/YankAssassin.nvim',
+    config = function()
+      require('YankAssassin').setup {
+        auto_normal = true, -- if true, autocmds are used. Whenever y is used in normal mode, the cursor doesn't move to start
+        auto_visual = true, -- if true, autocmds are used. Whenever y is used in visual mode, the cursor doesn't move to start
+      }
+    end,
+  },
   {
     'rebelot/kanagawa.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
@@ -46,25 +84,38 @@ return {
       },
     },
   },
-  {
-    'stevearc/oil.nvim',
-    config = function()
-      require('oil').setup {
-        skip_confirm_for_simple_edits = true,
-        keymaps = {
-          ['<C-v>'] = 'actions.select_vsplit',
-          ['<C-x>'] = 'actions.select_split',
-          ['<C-t>'] = 'actions.select_tab',
-          ['~'] = 'actions.cd',
-          ['`'] = 'actions.tcd',
-        },
-        view_options = {
-          show_hidden = true,
-        },
-      }
-      vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
-    end,
-  },
+  -- {
+  --   'nvim-tree/nvim-tree.lua',
+  --   config = function()
+  --     vim.keymap.set('n', '<leader>et', '<cmd>NvimTreeToggle<cr>', { desc = 'Open parent directory' })
+  --
+  --     local function my_on_attach(bufnr)
+  --       local api = require 'nvim-tree.api'
+  --       -- local function opts(desc)
+  --       --   return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  --       -- end
+  --       -- default mappings
+  --       api.config.mappings.default_on_attach(bufnr)
+  --       vim.keymap.del('n', 's', { buffer = bufnr })
+  --     end
+  --     require('nvim-tree').setup {
+  --       on_attach = my_on_attach,
+  --       sort = {
+  --         sorter = 'case_sensitive',
+  --       },
+  --       view = {
+  --         width = 30,
+  --       },
+  --       renderer = {
+  --         group_empty = true,
+  --       },
+  --       filters = {
+  --         dotfiles = true,
+  --         custom = { '__pycache__' },
+  --       },
+  --     }
+  --   end,
+  -- },
   -- {
   --   'windwp/nvim-autopairs',
   --   -- Optional dependency
@@ -102,25 +153,27 @@ return {
   --   end,
   -- },
   -- { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
-  -- {
-  --   'echasnovski/mini.nvim',
-  --   config = function()
-  --     require('mini.ai').setup { n_lines = 500 }
-  --     -- require('mini.surround').setup({
-  --     --   mappings = {
-  --     --     highlight = '', -- Highlight surrounding
-  --     --   },
-  --     -- })
-  --     local statusline = require 'mini.statusline'
-  --     statusline.setup { use_icons = vim.g.have_nerd_font }
-  --
-  --     -- You can configure sections in the statusline by overriding their
-  --     -- default behavior. For example, here we set the section for
-  --     -- cursor location to LINE:COLUMN
-  --     ---@diagnostic disable-next-line: duplicate-set-field
-  --     statusline.section_location = function()
-  --       return '%2l:%-2v'
-  --     end
-  --   end,
-  -- },
+  {
+    'echasnovski/mini.nvim',
+    config = function()
+      require('mini.tabline').setup()
+      require('mini.bracketed').setup()
+      require('mini.ai').setup { n_lines = 500 }
+      -- require('mini.surround').setup({
+      --   mappings = {
+      --     highlight = '', -- Highlight surrounding
+      --   },
+      -- })
+      local statusline = require 'mini.statusline'
+      statusline.setup { use_icons = vim.g.have_nerd_font }
+
+      -- You can configure sections in the statusline by overriding their
+      -- default behavior. For example, here we set the section for
+      -- cursor location to LINE:COLUMN
+      ---@diagnostic disable-next-line: duplicate-set-field
+      statusline.section_location = function()
+        return '%2l:%-2v'
+      end
+    end,
+  },
 }
